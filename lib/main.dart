@@ -17,35 +17,60 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  // bubble func
 
-  Padding getBubbleRight(){
+  // bubble function
+
+  Padding getBubbleRight(String text){
+
     return Padding(
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(7),
       child: Bubble(
-        child: Text('Hey!'),
-        alignment: Alignment.bottomRight,
+        padding: BubbleEdges.all(5.0),
         nip: BubbleNip.rightTop,
-        color: Color(0xffe1ffc6),
-      ),
+        stick: true,
+        child: Container(
+          padding: EdgeInsets.fromLTRB(3, 1, 3, 1),
+          child: Text("$text", style: TextStyle(
+            fontWeight: FontWeight.w400,
+            letterSpacing: 0.2,
+            wordSpacing: 0.5,
+          )),
+        ),
+        alignment: Alignment.topRight,
+        nipRadius: 1,
+        radius: Radius.circular(5),
+        margin: BubbleEdges.fromLTRB(0, 0, 5, 0),
+        color: Color(0xffe2fec8),
+        elevation: 0.5,
+      )
     );
   }
 
   Padding getBubbleLeft(String text){
+
     return Padding(
-      padding: EdgeInsets.all(5),
-      child: Bubble(
-        child: Text('$text'),
-        alignment: Alignment.bottomLeft,
-        nip: BubbleNip.leftBottom,
-        color: Colors.white,
-      ),
+        padding: EdgeInsets.all(7),
+        child: Bubble(
+          padding: BubbleEdges.all(5.0),
+          nip: BubbleNip.leftBottom,
+          stick: true,
+          child: Container(
+            padding: EdgeInsets.fromLTRB(3, 1, 3, 1),
+            child: Text("$text", style: TextStyle(
+              fontWeight: FontWeight.w400,
+              letterSpacing: 0.2,
+              wordSpacing: 0.5,
+            )),
+          ),
+          alignment: Alignment.bottomLeft,
+          nipRadius: 1,
+          radius: Radius.circular(5),
+          margin: BubbleEdges.fromLTRB(0, 0, 5, 0),
+          color: Color(0xffffffff),
+          borderWidth: 1,
+        )
     );
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +86,12 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: Icon(Icons.arrow_back, color: Color(0xfffefefe))),
             SizedBox(width: 10),
-            CircleAvatar(backgroundImage: AssetImage('assets/profile_pic.jpg'), radius: 18,),
+            CircleAvatar(backgroundImage: AssetImage('assets/profile_pic.jpg'), radius: 19,),
             SizedBox(width: 10),
             Text('Delwinnn', style: TextStyle(
-              letterSpacing: 0.2,
-              fontWeight: FontWeight.w600,
-              fontSize: 19
+                letterSpacing: 0.2,
+                fontWeight: FontWeight.w600,
+                fontSize: 19
             )),
 
             Expanded(child: SizedBox(width: 2)),
@@ -80,91 +105,71 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      
       extendBody: true,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            fit: BoxFit.fitHeight,
-            image: AssetImage('assets/whatsapp_background.jpg')
-          )
-        ),
-
+            image: AssetImage('assets/whatsapp_background.jpg'),
+            fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-
           children: [
 
-            Expanded(child:
+            //text panel
+            getBubbleLeft('Hey! When will you upload next reel?'),
+            getBubbleRight("It's being uploaded"),
 
-            // Messages Container & messages as function
 
+            // send msg panel
             Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  getBubbleRight(),
-                  getBubbleLeft("Heyy man, what's up!?"),
-                  getBubbleRight(),
-                  getBubbleLeft("Heyy man"),
-                ],
-              )
-            )),
-
-
-            // Send message panel
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+              margin: EdgeInsets.fromLTRB(5, 0, 0, 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    // color: Colors.grey,
-                      child: Row(
-                          children: [
-                            Container(
-                              //  margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                height: 45,
-                                width: 315,
-                                decoration: BoxDecoration(
-                                    color: Color(0xfffefeff),
-                                    borderRadius: BorderRadius.all(Radius.circular(200))
-                                ),
+                  Expanded(
+                    flex: 8,
+                    child:Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                      // border: Border.all(width: 0.2),
+                      boxShadow: [BoxShadow(
+                        color: Color(0xff8a8d90),
+                        spreadRadius: 0.2,
+                        blurRadius: 0.5
+                      )],
+                      color: Color(0xfffefeff)
+                    ),
+                    height: 45,
+                    child: Row(
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Icon(Icons.emoji_emotions_outlined, color: Color(0xff888a8f))),
+                        SizedBox(width: 10),
+                        Text('Message', style: TextStyle(
+                          color: Color(0xff888a8f),
+                          fontSize: 18
+                        )),
 
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                        padding: EdgeInsets.fromLTRB(10,0,0,0),
-                                        child: Icon(Icons.emoji_emotions_outlined, color: Color(0xff868d90))),
-
-                                    SizedBox(width: 5),
-
-                                    Text('Message', style: TextStyle(
-                                        color: Color(0xffb4b5b4),
-                                        fontSize: 18
-                                    )),
-                                    Expanded(child: SizedBox(width: 1)),
-                                    Icon(Icons.attach_file_rounded, color: Color(0xff868d90)),
-                                    SizedBox(width: 10),
-                                    Icon(Icons.camera_alt_rounded, color: Color(0xff868d90)),
-                                    SizedBox(width: 10),
-                                  ],
-                                )
-                            ),
-                            SizedBox(width: 05),
-                            CircleAvatar(radius: 25,
-                                child: Icon(Icons.mic_rounded, color: Colors.white),
-                                backgroundColor: Color(0xff065f55))
-                          ]
-                      )
-                  )
+                        Expanded(child: SizedBox(width:45)),
+                        Icon(Icons.attach_file_rounded, color: Color(0xff888a8f)),
+                        SizedBox(width: 10),
+                        Icon(Icons.camera_alt_rounded, color: Color(0xff888a8f)),
+                        SizedBox(width: 10),
+                      ],
+                    )
+                  )),
+                  SizedBox(width: 10),
+                  CircleAvatar(
+                    child: Icon(Icons.mic_rounded, color: Colors.white),
+                    backgroundColor: Color(0xff008878),
+                    radius: 25,),
+                  SizedBox(width: 5),
                 ],
               ),
-            ),
+            )
           ],
         )
-
-
       ),
     );
   }
